@@ -101,7 +101,7 @@ local plugins = {
 							icon = " ",
 							key = "e",
 							desc = "Explore",
-							action = ":lua Snacks.explorer({ jump = { close = true }, tree = true, layout = { preset = 'dropdown', preview = false }})",
+							action = ":lua Snacks.explorer({ hidden = true, ignored = true, jump = { close = true }, tree = true, layout = { preset = 'dropdown', preview = false }})",
 						},
 						{
 							icon = "󰒲 ",
@@ -161,6 +161,8 @@ local plugins = {
 				"<leader>e",
 				function()
 					Snacks.explorer({
+						hidden = true,
+						ignored = true,
 						jump = { close = true },
 						tree = true,
 						layout = { preset = "dropdown", preview = false },
