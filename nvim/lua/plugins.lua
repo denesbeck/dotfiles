@@ -371,9 +371,6 @@ local plugins = {
 	{ "echasnovski/mini.indentscope", version = "*" },
 	{ "echasnovski/mini.surround", version = "*" },
 
-	-- Copilot
-	"github/copilot.vim",
-
 	-- Formatters
 	{
 		"nvimtools/none-ls.nvim",
