@@ -53,8 +53,8 @@ git clone --depth 1 https://github.com/denesbeck/dotfiles.git ~/.config
 
 ```zsh
 alias vi=nvim
-alias ll="eza -l --icons --git -h"
-alias lla="eza -l --icons --git -h -a"
+alias ll="eza -lg --icons --git -h"
+alias lla="eza -lg --icons --git -h -a"
 alias cat=bat
 alias lg=lazygit
 alias u="brew update && brew upgrade && brew cleanup"
