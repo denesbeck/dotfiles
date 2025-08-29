@@ -14,7 +14,6 @@ local sources = {
 	}),
 	none_ls.builtins.formatting.stylua,
 	none_ls.builtins.formatting.terraform_fmt,
-	none_ls.builtins.diagnostics.terraform_validate,
 }
 
 ---@diagnostic disable-next-line: undefined-global
@@ -31,17 +30,23 @@ none_ls.setup({
 				group = augroup,
 				buffer = bufnr,
 				callback = function()
-					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-					-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-					vim.lsp.buf.format({ bufnr = bufnr, async = false })
+					vim.lsp.buf.format({
+						bufnr = bufnr,
+						async = false,
+						filter = function(c)
+							return c.name == "null-ls"
+						end,
+					})
 				end,
 			})
 		end
 	end,
 })
 require("lspconfig").eslint.setup({
-	--- ...
 	on_attach = function(client, bufnr)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
+
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
 			command = "EslintFixAll",
