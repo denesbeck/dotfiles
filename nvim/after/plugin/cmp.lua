@@ -69,6 +69,9 @@ cmp.setup.cmdline(":", {
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 local lspconfig = require("lspconfig")
+lspconfig["ansiblels"].setup({
+	capabilities = capabilities,
+})
 lspconfig["bashls"].setup({
 	capabilities = capabilities,
 })
@@ -76,6 +79,9 @@ lspconfig["cssls"].setup({
 	capabilities = capabilities,
 })
 lspconfig["dockerls"].setup({
+	capabilities = capabilities,
+})
+lspconfig["eslint"].setup({
 	capabilities = capabilities,
 })
 lspconfig["gopls"].setup({
@@ -93,9 +99,6 @@ lspconfig["lua_ls"].setup({
 lspconfig["pyright"].setup({
 	capabilities = capabilities,
 })
-lspconfig["rubocop"].setup({
-	capabilities = capabilities,
-})
 lspconfig["sqlls"].setup({
 	capabilities = capabilities,
 })
@@ -106,8 +109,5 @@ lspconfig["terraformls"].setup({
 	capabilities = capabilities,
 })
 lspconfig["ts_ls"].setup({
-	capabilities = capabilities,
-})
-lspconfig["yamlls"].setup({
 	capabilities = capabilities,
 })
