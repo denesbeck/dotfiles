@@ -34,7 +34,6 @@ vim.g.autoformat_enabled = true -- enable or disable auto formatting at start (l
 vim.g.autopairs_enabled = true -- enable autopairs at start
 vim.g.cmp_enabled = true -- enable completion at start
 
-vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.wildoptions = "pum"
 vim.opt.pumblend = 5

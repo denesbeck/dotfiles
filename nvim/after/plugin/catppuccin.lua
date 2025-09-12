@@ -1,6 +1,6 @@
-local ok, catpuccin = pcall(require, "catpuccin")
+local ok, catppuccin = pcall(require, "catppuccin")
 if not ok then
 	return
 end
 
-catpuccin.setup({})
+catppuccin.setup({})
