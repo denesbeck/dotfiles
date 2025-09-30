@@ -344,17 +344,7 @@ local plugins = {
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
-	"hrsh7th/cmp-vsnip",
-	"hrsh7th/vim-vsnip",
-	"hrsh7th/cmp-nvim-lua",
-
-	-- IncRename
-	{
-		"smjonas/inc-rename.nvim",
-		config = function()
-			require("inc_rename").setup()
-		end,
-	},
+	"hrsh7th/nvim-cmp",
 
 	-- Todo Comments
 	{
