@@ -1,0 +1,172 @@
+---
+- name: Setup local development environment
+  hosts: localhost
+  tasks:
+    # Clean up previous configurations
+    - name: Clean previous nvim and tmux config
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "~/.config/.git"
+        - "~/.config/.gitignore"
+        - "~/.config/README.md"
+        - "~/.config/nvim"
+        - "~/.local/share/nvim"
+        - "~/.local/state/nvim"
+        - "~/.cache/nvim"
+        - "~/.config/tmux"
+        - "~/.tmux"
+
+    # Get the dotfiles assuming that ~/.config already exists
+    - name: Initialize Git repository and checkout main branch
+      block:
+        - name: Initialize git repository
+          command: git init
+          args:
+            chdir: "~/.config"
+
+        - name: Add remote origin
+          command: git remote add origin https://github.com/denesbeck/dotfiles.git
+          args:
+            chdir: "~/.config"
+
+        - name: Fetch remote repository
+          command: git fetch origin
+          args:
+            chdir: "~/.config"
+
+        - name: Checkout to main
+          command: git checkout -b main --track origin/main
+          args:
+            chdir: "~/.config"
+
+    # Install Homebrew (if not installed)
+    - name: Install Homebrew
+      shell: |
+        if test ! $(which brew); then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+      args:
+        creates: "/opt/homebrew/bin/brew"
+
+    # Install necessary software via Homebrew
+    - name: Install software via Homebrew
+      homebrew:
+        install_options: skip-post-install
+        name: "{{ item }}"
+        state: present
+      loop:
+        - bash
+        - bat
+        - bottom
+        - eza
+        - fzf
+        - ghostty
+        - httpie
+        - jq
+        - lazygit
+        - neovim
+        - nvm
+        - pyenv
+        - ripgrep
+        - tmux
+        - tree-sitter
+        - wget
+
+    # Install Ghostty config (macOS path: ~/Library/Application Support/com.mitchellh.ghostty/config)
+    - name: Configure Ghostty
+      copy:
+        dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/com.mitchellh.ghostty/config"
+        content: |
+          background-opacity = 0.7
+          background-blur = 15
+          theme = Catppuccin Frappe
+
+    # Install TPM for Tmux
+    - name: Install Tmux Plugin Manager (TPM)
+      git:
+        repo: "https://github.com/tmux-plugins/tpm.git"
+        dest: "~/.tmux/plugins/tpm"
+        clone: yes
+
+    # Install Oh My Zsh
+    - name: Install Oh My Zsh
+      shell: |
+        if [ ! -d "$HOME/.oh-my-zsh" ]; then
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        fi
+      args:
+        creates: "~/.oh-my-zsh"
+
+    # Install Zsh plugins
+    # - name: Install Zsh plugins
+    #   git:
+    #     repo: "{{ item }}"
+    #     dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/{{ item | basename }}"
+    #     clone: yes
+    #   loop:
+    #     - "https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z"
+    #     - "https://github.com/zsh-users/zsh-autosuggestions"
+    #     - "https://github.com/fdellwing/zsh-bat"
+    #     - "https://github.com/zsh-users/zsh-syntax-highlighting"
+    #     - "https://github.com/MichaelAquilina/zsh-you-should-use"
+
+    # # Setup Pyenv
+    - name: Ensure Pyenv config is added to .zshrc
+      blockinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        block: |
+          export PYENV_ROOT="$HOME/.pyenv"
+          [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+          eval "$(pyenv init - zsh)"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK: Pyenv config"
+        insertafter: EOF
+        create: yes
+        append_newline: yes
+        prepend_newline: yes
+
+    # Setup NVM
+    - name: Ensure NVM config is added to .zshrc
+      blockinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        block: |
+          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK: NVM config"
+        insertafter: EOF
+        create: yes
+        append_newline: yes
+        prepend_newline: yes
+
+    # Add custom aliases
+    - name: Ensure custom aliases are added to .zshrc
+      blockinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        block: |
+          alias vi=nvim
+          alias g='ghostty'
+          alias ll='eza -lg --icons --git -h'
+          alias lla='eza -lg --icons --git -h -a'
+          alias cat=bat
+          alias lg=lazygit
+          alias gem='git commit --allow-empty -m'
+          alias update='brew update && brew upgrade && brew cleanup'
+          alias a=ansible
+          alias tf=terraform
+          alias k=kubectl
+          alias d=docker
+          alias dc='docker-compose'
+        marker: "# {mark} ANSIBLE MANAGED BLOCK: Custom Aliases"
+        insertafter: EOF
+        create: yes
+        append_newline: yes
+        prepend_newline: yes
+
+    # Install Tmux plugins (via TPM)
+    - name: Install Tmux plugins
+      shell: tmux source-file ~/.config/tmux/tmux.conf
+
+    # Reload Zsh configuration
+    - name: Reload Zsh configuration
+      shell: source ~/.zshrc

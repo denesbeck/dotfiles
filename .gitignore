@@ -4,6 +4,7 @@
 # unignore core files
 !.gitignore
 !README.md
+!init.yml
 
 # unignore config.fish
 !fish
