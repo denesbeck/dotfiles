@@ -18,4 +18,21 @@ if not mason_lsp_ok then
 	return
 end
 
-mason_lspconfig.setup()
+mason_lspconfig.setup({
+	ensure_installed = {
+		"ansiblels",
+		"bashls",
+		"cssls",
+		"dockerls",
+		"eslint",
+		"gopls",
+		"html",
+		"jsonls",
+		"lua_ls",
+		"pyright",
+		"sqlls",
+		"tailwindcss",
+		"terraformls",
+		"ts_ls",
+	},
+})
