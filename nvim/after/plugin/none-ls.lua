@@ -1,26 +1,26 @@
-local ok, none_ls = pcall(require, "none-ls")
+local ok, null_ls = pcall(require, "null-ls")
 if not ok then
 	return
 end
 
 local sources = {
-	none_ls.builtins.formatting.gofumpt,
-	none_ls.builtins.formatting.goimports_reviser,
-	none_ls.builtins.formatting.prettierd,
-	none_ls.builtins.formatting.rubocop,
-	none_ls.builtins.formatting.rustywind,
-	none_ls.builtins.formatting.shfmt.with({
+	null_ls.builtins.formatting.gofumpt,
+	null_ls.builtins.formatting.goimports_reviser,
+	null_ls.builtins.formatting.prettierd,
+	null_ls.builtins.formatting.rubocop,
+	null_ls.builtins.formatting.rustywind,
+	null_ls.builtins.formatting.shfmt.with({
 		extra_args = { "-i", "2", "-ci" },
 	}),
-	none_ls.builtins.formatting.stylua,
-	none_ls.builtins.formatting.terraform_fmt,
+	null_ls.builtins.formatting.stylua,
+	null_ls.builtins.formatting.terraform_fmt,
 }
 
 ---@diagnostic disable-next-line: undefined-global
 local vim = vim
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-none_ls.setup({
+null_ls.setup({
 	sources = sources,
 	-- you can reuse a shared lspconfig on_attach callback here
 	on_attach = function(client, bufnr)
@@ -34,7 +34,7 @@ none_ls.setup({
 						bufnr = bufnr,
 						async = false,
 						filter = function(c)
-							return c.name == "none-ls"
+							return c.name == "null-ls"
 						end,
 					})
 				end,
