@@ -4,4 +4,8 @@ local mini_surround = require("mini.surround")
 
 mini_bracketed.setup()
 mini_indentscope.setup()
-mini_surround.setup()
+mini_surround.setup({
+	options = {
+		add_spaces = false, -- Disable adding spaces
+	},
+})
