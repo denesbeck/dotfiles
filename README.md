@@ -10,24 +10,24 @@ rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.c
 
 ## 🛠 Install
 
-==> Install [neovim](https://github.com/neovim/neovim)\
-==> Install [tmux](https://github.com/tmux/tmux)\
-==> Install [tpm](https://github.com/tmux-plugins/tpm)\
-==> Manually install the [catppuccin for tmux](https://github.com/catppuccin/tmux) plugin
-
 Clone the repository:
 
 ```bash
 git clone --depth 1 https://github.com/denesbeck/dotfiles.git ~/.config
 ```
 
-==> Reload Tmux: `tmux source ~/.config/tmux/tmux.conf`\
+==> Install [neovim](https://github.com/neovim/neovim)\
+==> Install [tmux](https://github.com/tmux/tmux)\
+==> Install [tpm](https://github.com/tmux-plugins/tpm)\
+==> Manually install the [catppuccin for tmux](https://github.com/catppuccin/tmux) plugin\
+==> Install Tmux plugins (prefix + I) or reload the configuration: `tmux source ~/.config/tmux/tmux.conf`\
 ==> Install [oh-my-zsh](https://ohmyz.sh/)
 
 ## ⚡ Tools & Plugins
 
 ### 📦 General
 
+[bat](https://github.com/sharkdp/bat)\
 [bottom](https://github.com/ClementTsang/bottom)\
 [commitizen](https://commitizen-tools.github.io/commitizen/)\
 [eza](https://eza.rocks/)\
@@ -45,7 +45,7 @@ git clone --depth 1 https://github.com/denesbeck/dotfiles.git ~/.config
 
 [z](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z)\
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)\
-[zsh-bat](https://github.com/fdellwing/zsh-bat)
+[zsh-bat](https://github.com/fdellwing/zsh-bat)\
 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)\
 [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use)
 
