@@ -1,4 +1,4 @@
-local ok, none_ls = pcall(require, "null-ls")
+local ok, none_ls = pcall(require, "none-ls")
 if not ok then
 	return
 end
@@ -34,7 +34,7 @@ none_ls.setup({
 						bufnr = bufnr,
 						async = false,
 						filter = function(c)
-							return c.name == "null-ls"
+							return c.name == "none-ls"
 						end,
 					})
 				end,
