@@ -29,10 +29,13 @@ mason_lspconfig.setup({
 		"html",
 		"jsonls",
 		"lua_ls",
+		"nginx_language_server",
 		"pyright",
 		"sqlls",
+		"stylua",
 		"tailwindcss",
 		"terraformls",
 		"ts_ls",
+		"yamlls",
 	},
 })
