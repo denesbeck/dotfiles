@@ -100,18 +100,38 @@
       args:
         creates: "~/.oh-my-zsh"
 
+    # Purge the existing Zsh plugins folder
+    - name: Purge existing Zsh plugins
+      file:
+        path: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins"
+        state: absent
+      become: yes
+      ignore_errors: yes
+
+    # Add plugins to the .zshrc file
+    - name: Update plugins line in .zshrc
+      lineinfile:
+        path: "{{ ansible_user_dir }}/.zshrc"
+        regexp: "^plugins="
+        line: "plugins=(git z zsh-autosuggestions zsh-bat zsh-syntax-highlighting you-should-use)"
+
     # Install Zsh plugins
-    # - name: Install Zsh plugins
-    #   git:
-    #     repo: "{{ item }}"
-    #     dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/{{ item | basename }}"
-    #     clone: yes
-    #   loop:
-    #     - "https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z"
-    #     - "https://github.com/zsh-users/zsh-autosuggestions"
-    #     - "https://github.com/fdellwing/zsh-bat"
-    #     - "https://github.com/zsh-users/zsh-syntax-highlighting"
-    #     - "https://github.com/MichaelAquilina/zsh-you-should-use"
+    - name: Install Zsh plugins
+      git:
+        repo: "{{ item }}"
+        dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/{{ item | basename }}"
+        clone: yes
+      loop:
+        - "https://github.com/zsh-users/zsh-autosuggestions"
+        - "https://github.com/fdellwing/zsh-bat"
+        - "https://github.com/zsh-users/zsh-syntax-highlighting"
+
+    # Install zsh-you-should-use plugin with custom folder name
+    - name: Install zsh-you-should-use plugin
+      git:
+        repo: "https://github.com/MichaelAquilina/zsh-you-should-use"
+        dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/you-should-use" # Custom folder name without the zsh- prefix
+        clone: yes
 
     # Setup Pyenv
     - name: Ensure Pyenv config is added to .zshrc
@@ -195,6 +215,6 @@
       shell: source ~/.zshrc
 
   handlers:
-  - name: Reload Tmux configuration
-    shell: "tmux kill-session -t default || true"
-    ignore_errors: yes
+    - name: Reload Tmux configuration
+      shell: "tmux kill-session -t default || true"
+      ignore_errors: yes
