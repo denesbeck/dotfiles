@@ -8,16 +8,16 @@
         path: "{{ item }}"
         state: absent
       loop:
-        - "~/.config/.git"
-        - "~/.config/.gitignore"
-        - "~/.config/README.md"
-        - "~/.config/init.yml"
-        - "~/.config/nvim"
-        - "~/.local/share/nvim"
-        - "~/.local/state/nvim"
-        - "~/.cache/nvim"
-        - "~/.config/tmux"
-        - "~/.tmux"
+        - "{{ ansible_user_dir }}/.config/.git"
+        - "{{ ansible_user_dir }}/.config/.gitignore"
+        - "{{ ansible_user_dir }}/.config/README.md"
+        - "{{ ansible_user_dir }}/.config/init.yml"
+        - "{{ ansible_user_dir }}/.config/nvim"
+        - "{{ ansible_user_dir }}/.local/share/nvim"
+        - "{{ ansible_user_dir }}/.local/state/nvim"
+        - "{{ ansible_user_dir }}/.cache/nvim"
+        - "{{ ansible_user_dir }}/.config/tmux"
+        - "{{ ansible_user_dir }}/.tmux"
 
     # Get the dotfiles assuming that ~/.config already exists
     - name: Initialize Git repository and checkout main branch
@@ -25,22 +25,22 @@
         - name: Initialize git repository
           command: git init
           args:
-            chdir: "~/.config"
+            chdir: "{{ ansible_user_dir }}/.config"
 
         - name: Add remote origin
           command: git remote add origin https://github.com/denesbeck/dotfiles.git
           args:
-            chdir: "~/.config"
+            chdir: "{{ ansible_user_dir }}/.config"
 
         - name: Fetch remote repository
           command: git fetch origin
           args:
-            chdir: "~/.config"
+            chdir: "{{ ansible_user_dir }}/.config"
 
         - name: Checkout to main
           command: git checkout -b main --track origin/main
           args:
-            chdir: "~/.config"
+            chdir: "{{ ansible_user_dir }}/.config"
 
     # Install Homebrew (if not installed)
     - name: Install Homebrew
@@ -103,7 +103,7 @@
     - name: Install Tmux Plugin Manager (TPM)
       git:
         repo: "https://github.com/tmux-plugins/tpm.git"
-        dest: "~/.tmux/plugins/tpm"
+        dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
         clone: yes
 
     # Install Oh My Zsh
@@ -113,7 +113,7 @@
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         fi
       args:
-        creates: "~/.oh-my-zsh"
+        creates: "{{ ansible_user_dir }}/.oh-my-zsh"
 
     # Purge the existing Zsh plugins folder
     - name: Purge existing Zsh plugins
@@ -151,7 +151,7 @@
     # Setup Pyenv
     - name: Ensure Pyenv config is added to .zshrc
       blockinfile:
-        path: "~/.zshrc"
+        path: "{{ ansible_user_dir }}/.zshrc"
         block: |
           export PYENV_ROOT="$HOME/.pyenv"
           [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -165,7 +165,7 @@
     # Setup NVM
     - name: Ensure NVM config is added to .zshrc
       blockinfile:
-        path: "{{ ansible_env.HOME }}/.zshrc"
+        path: "{{ ansible_user_dir }}/.zshrc"
         block: |
           export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -178,7 +178,7 @@
     # Add custom aliases
     - name: Ensure custom aliases are added to .zshrc
       blockinfile:
-        path: "~/.zshrc"
+        path: "{{ ansible_user_dir }}/.zshrc"
         block: |
           alias vi=nvim
           alias g='ghostty'
@@ -202,13 +202,13 @@
     # Setup Catppuccin for Tmux
     - name: Ensure the directory exists
       file:
-        path: "~/.config/tmux/plugins/catppuccin"
+        path: "{{ ansible_user_dir }}/.config/tmux/plugins/catppuccin"
         state: directory
 
     - name: Clone the Catppuccin Tmux plugin repository
       git:
         repo: "https://github.com/catppuccin/tmux.git"
-        dest: "~/.config/tmux/plugins/catppuccin/tmux"
+        dest: "{{ ansible_user_dir }}/.config/tmux/plugins/catppuccin/tmux"
         clone: yes
         update: yes
 
@@ -220,14 +220,14 @@
 
     - name: Reload Tmux configuration
       command:
-        cmd: "tmux source-file ~/.config/tmux/tmux.conf"
+        cmd: "tmux source-file {{ ansible_user_dir }}/.config/tmux/tmux.conf"
       when: tmux_check.rc == 0
       notify:
         - Reload Tmux configuration
 
     # Reload Zsh configuration
     - name: Reload Zsh configuration
-      shell: source ~/.zshrc
+      shell: source {{ ansible_user_dir }}/.zshrc
 
   handlers:
     - name: Reload Tmux configuration
