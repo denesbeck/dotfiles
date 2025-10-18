@@ -61,6 +61,7 @@
         - bash
         - bat
         - bottom
+        - curl
         - eza
         - fzf
         - ghostty
@@ -74,15 +75,29 @@
         - tmux
         - tree-sitter
         - wget
+        - yq
 
     # Install Ghostty config (macOS path: ~/Library/Application Support/com.mitchellh.ghostty/config)
+    - name: Ensure parent directories exist
+      file:
+        path: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty"
+        state: directory
+        mode: "0755"
+
+    - name: Create the config file if it doesn't exist
+      file:
+        path: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty/config"
+        state: touch
+        mode: "0644"
+
     - name: Configure Ghostty
       copy:
-        dest: "~/Library/Application Support/com.mitchellh.ghostty/config"
+        dest: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty/config"
         content: |
           background-opacity = 0.7
           background-blur = 15
           theme = Catppuccin Frappe
+        mode: "0644"
 
     # Install TPM for Tmux
     - name: Install Tmux Plugin Manager (TPM)
