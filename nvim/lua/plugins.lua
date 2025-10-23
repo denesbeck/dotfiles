@@ -386,6 +386,12 @@ local plugins = {
 		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
+
+	--Windsurf
+	{
+		"Exafunction/windsurf.vim",
+		event = "BufEnter",
+	},
 }
 
 local opts = {}

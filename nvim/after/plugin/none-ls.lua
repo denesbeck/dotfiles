@@ -42,7 +42,7 @@ null_ls.setup({
 		end
 	end,
 })
-require("lspconfig").eslint.setup({
+vim.lsp.config("eslint", {
 	on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false

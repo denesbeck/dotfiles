@@ -34,48 +34,78 @@ cmp.setup.cmdline(":", {
 
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-local lspconfig = require("lspconfig")
 
-lspconfig["ansiblels"].setup({
+vim.lsp.config("ansiblels", {
 	capabilities = capabilities,
 })
-lspconfig["bashls"].setup({
+vim.lsp.enable("ansiblels")
+
+vim.lsp.config("bashls", {
 	capabilities = capabilities,
 })
-lspconfig["cssls"].setup({
+vim.lsp.enable("bashls")
+
+vim.lsp.config("cssls", {
 	capabilities = capabilities,
 })
-lspconfig["dockerls"].setup({
+vim.lsp.enable("cssls")
+
+vim.lsp.config("dockerls", {
 	capabilities = capabilities,
 })
-lspconfig["eslint"].setup({
+vim.lsp.enable("dockerls")
+
+vim.lsp.config("eslint", {
 	capabilities = capabilities,
 })
-lspconfig["gopls"].setup({
+vim.lsp.enable("eslint")
+
+vim.lsp.config("gopls", {
 	capabilities = capabilities,
 })
-lspconfig["html"].setup({
+vim.lsp.enable("gopls")
+
+vim.lsp.config("html", {
 	capabilities = capabilities,
 })
-lspconfig["jsonls"].setup({
+vim.lsp.enable("html")
+
+vim.lsp.config("jsonls", {
 	capabilities = capabilities,
 })
-lspconfig["lua_ls"].setup({
+vim.lsp.enable("jsonls")
+
+vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 })
-lspconfig["pyright"].setup({
+vim.lsp.enable("lua_ls")
+
+vim.lsp.config("pyright", {
 	capabilities = capabilities,
 })
-lspconfig["sqlls"].setup({
+vim.lsp.enable("pyright")
+
+vim.lsp.config("sqlls", {
 	capabilities = capabilities,
 })
-lspconfig["tailwindcss"].setup({
+vim.lsp.enable("sqlls")
+
+vim.lsp.config("tailwindcss", {
 	capabilities = capabilities,
 })
-lspconfig["terraformls"].setup({
+vim.lsp.enable("tailwindcss")
+
+vim.lsp.config("terraformls", {
 	capabilities = capabilities,
 })
-lspconfig["ts_ls"].setup({
+vim.lsp.enable("terraformls")
+
+vim.lsp.config("ts_ls", {
 	capabilities = capabilities,
 })
+vim.lsp.enable("ts_ls")
+
+vim.lsp.config("yamlls", {
+	capabilities = capabilities,
+})
+vim.lsp.enable("yamlls")
