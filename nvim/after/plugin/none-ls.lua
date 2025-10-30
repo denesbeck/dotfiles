@@ -42,14 +42,3 @@ null_ls.setup({
 		end
 	end,
 })
-vim.lsp.config("eslint", {
-	on_attach = function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
-
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			command = "EslintFixAll",
-		})
-	end,
-})
