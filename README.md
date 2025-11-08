@@ -2,6 +2,10 @@
 
 My dotfiles for NeoVim, Tmux.
 
+<img width="800" height="460" alt="image" src="https://github.com/user-attachments/assets/24e12387-2526-4683-931d-b6cbf75d0bed" />
+<img width="800" height="460" alt="Screenshot 2025-11-08 at 17 02 23" src="https://github.com/user-attachments/assets/051ac660-7282-4393-9b7b-600ac7c65680" />
+<img width="800" height="460" alt="Screenshot 2025-11-08 at 15 45 28" src="https://github.com/user-attachments/assets/c076e996-ed92-4ef5-867b-8b4eacc11cf9" />
+
 ## 🛠 Install using Ansible
 
 1. Ensure [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible) is installed.
