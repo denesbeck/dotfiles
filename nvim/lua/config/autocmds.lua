@@ -8,8 +8,3 @@ vim.cmd([[
   au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=100})
   augroup END
 ]])
-
-vim.cmd.colorscheme("catppuccin")
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
