@@ -17,6 +17,8 @@ return {
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
+	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
 
 	{
 		"hrsh7th/nvim-cmp",
@@ -26,7 +28,16 @@ return {
 				return
 			end
 
+			local luasnip_ok, luasnip = pcall(require, "luasnip")
+
 			cmp.setup({
+				snippet = {
+					expand = function(args)
+						if luasnip_ok then
+							luasnip.lsp_expand(args.body)
+						end
+					end,
+				},
 				formatting = {
 					format = require("cmp-tailwind-colors").format,
 				},
@@ -39,6 +50,7 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
 				}, {
 					{ name = "buffer" },
 				}),
@@ -58,80 +70,28 @@ return {
 			-- Set up lspconfig.
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			vim.lsp.config("ansiblels", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("ansiblels")
+			local servers = {
+				"ansiblels",
+				"bashls",
+				"cssls",
+				"dockerls",
+				"eslint",
+				"gopls",
+				"html",
+				"jsonls",
+				"lua_ls",
+				"pyright",
+				"sqlls",
+				"tailwindcss",
+				"terraformls",
+				"ts_ls",
+				"yamlls",
+			}
 
-			vim.lsp.config("bashls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("bashls")
-
-			vim.lsp.config("cssls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("cssls")
-
-			vim.lsp.config("dockerls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("dockerls")
-
-			vim.lsp.config("eslint", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("eslint")
-
-			vim.lsp.config("gopls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("gopls")
-
-			vim.lsp.config("html", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("html")
-
-			vim.lsp.config("jsonls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("jsonls")
-
-			vim.lsp.config("lua_ls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("lua_ls")
-
-			vim.lsp.config("pyright", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("pyright")
-
-			vim.lsp.config("sqlls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("sqlls")
-
-			vim.lsp.config("tailwindcss", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("tailwindcss")
-
-			vim.lsp.config("terraformls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("terraformls")
-
-			vim.lsp.config("ts_ls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("ts_ls")
-
-			vim.lsp.config("yamlls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.enable("yamlls")
+			for _, lsp in ipairs(servers) do
+				vim.lsp.config(lsp, { capabilities = capabilities })
+				vim.lsp.enable(lsp)
+			end
 		end,
 	},
 }
