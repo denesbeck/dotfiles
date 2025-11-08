@@ -38,3 +38,14 @@ vim.opt.termguicolors = true
 vim.opt.wildoptions = "pum"
 vim.opt.pumblend = 5
 vim.opt.background = "dark"
+
+-- File management
+vim.opt.undofile = true -- persistent undo
+vim.opt.swapfile = false -- disable swapfiles
+vim.opt.backup = false -- disable backup files
+vim.opt.writebackup = false -- disable backup before write
+
+-- UI improvements
+vim.opt.signcolumn = "yes" -- always show signcolumn
+vim.opt.updatetime = 250 -- faster completion and git signs
+vim.opt.timeoutlen = 300 -- faster which-key popup
