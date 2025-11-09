@@ -8,7 +8,6 @@ return {
 		end
 
 		local sources = {
-			null_ls.builtins.formatting.gofumpt,
 			null_ls.builtins.formatting.goimports_reviser,
 			null_ls.builtins.formatting.nginx_beautifier,
 			null_ls.builtins.formatting.prettierd,
