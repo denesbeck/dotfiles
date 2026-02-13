@@ -33,9 +33,9 @@ return {
 				ensure_installed = {
 					"ansiblels",
 					"bashls",
+					"biome",
 					"cssls",
 					"dockerls",
-					"eslint",
 					"gopls",
 					"html",
 					"jsonls",

@@ -73,9 +73,9 @@ return {
 			local servers = {
 				"ansiblels",
 				"bashls",
+				"biome",
 				"cssls",
 				"dockerls",
-				"eslint",
 				"gopls",
 				"html",
 				"jsonls",

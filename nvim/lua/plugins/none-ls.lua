@@ -8,9 +8,9 @@ return {
 		end
 
 		local sources = {
+			null_ls.builtins.formatting.biome,
 			null_ls.builtins.formatting.goimports_reviser,
 			null_ls.builtins.formatting.nginx_beautifier,
-			null_ls.builtins.formatting.prettierd,
 			null_ls.builtins.formatting.rustywind,
 			null_ls.builtins.formatting.shfmt.with({
 				extra_args = { "-i", "2", "-ci" },
