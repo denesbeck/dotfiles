@@ -67,9 +67,12 @@
         - ghostty
         - httpie
         - jq
+        - lazydocker
         - lazygit
+        - lazyssh
         - neovim
         - nvm
+        - opencode
         - pyenv
         - ripgrep
         - tmux
@@ -185,7 +188,10 @@
           alias ll='eza -lg --icons --git -h'
           alias lla='eza -lg --icons --git -h -a'
           alias cat=bat
+          alias ld=lazydocker
           alias lg=lazygit
+          alias lssh=lazyssh
+          alias oc=opencode
           alias gem='git commit --allow-empty -m'
           alias update='brew update && brew upgrade && brew cleanup'
           alias a=ansible
