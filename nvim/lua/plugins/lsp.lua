@@ -51,9 +51,6 @@ return {
 		end,
 	},
 
-	-- LSP Config
-	"neovim/nvim-lspconfig",
-
 	-- LSP Saga
 	{
 		"glepnir/lspsaga.nvim",

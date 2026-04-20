@@ -22,6 +22,9 @@ return {
 
 	{
 		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+		},
 		config = function()
 			local ok, cmp = pcall(require, "cmp")
 			if not ok then
