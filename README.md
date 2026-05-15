@@ -73,15 +73,22 @@ theme = Catppuccin Frappe
 - bash
 - [bat](https://github.com/sharkdp/bat)
 - [bottom](https://github.com/ClementTsang/bottom)
+- curl
 - [eza](https://eza.rocks/)
 - [fzf](https://github.com/junegunn/fzf)
 - [httpie](https://httpie.io/)
 - [jq](https://github.com/jqlang/jq)
+- [lazydocker](https://github.com/jesseduffield/lazydocker)
 - [lazygit](https://github.com/jesseduffield/lazygit)
+- [lazyssh](https://github.com/Adembc/lazyssh)
 - [nvm](https://github.com/nvm-sh/nvm)
+- [opencode](https://github.com/sst/opencode)
 - [pyenv](https://github.com/pyenv/pyenv)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [tree-sitter](https://tree-sitter.github.io/tree-sitter/)
+- [tree-sitter-cli](https://tree-sitter.github.io/tree-sitter/cli/index.html)
 - wget
+- [yq](https://github.com/mikefarah/yq)
 
 ### 🔌 Oh My Zsh Plugins
 
@@ -99,7 +106,10 @@ alias g="ghostty"
 alias ll="eza -lg --icons --git -h"
 alias lla="eza -lg --icons --git -h -a"
 alias cat=bat
+alias ld=lazydocker
 alias lg=lazygit
+alias lssh=lazyssh
+alias oc=opencode
 alias gem="git commit --allow-empty -m"
 alias update="brew update && brew upgrade && brew cleanup"
 alias a=ansible

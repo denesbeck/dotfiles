@@ -77,6 +77,7 @@
         - ripgrep
         - tmux
         - tree-sitter
+        - tree-sitter-cli
         - wget
         - yq
 
