@@ -1,20 +1,10 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
+	"romus204/tree-sitter-manager.nvim",
+	event = { "BufReadPost", "BufNewFile" },
 	config = function()
-		local ok, treesitter = pcall(require, "nvim-treesitter.configs")
-		if not ok then
-			return
-		end
-
-		treesitter.setup({
-			highlight = {
-				enable = true,
-				disable = {},
-			},
-			indent = {
-				enable = true,
-				disable = {},
-			},
+		require("tree-sitter-manager").setup({
+			auto_install = true,
+			highlight = true,
 			ensure_installed = {
 				"bash",
 				"css",
@@ -26,11 +16,14 @@ return {
 				"markdown",
 				"markdown_inline",
 				"python",
+				"query",
 				"ruby",
 				"sql",
-				"tsx",
 				"terraform",
+				"tsx",
 				"typescript",
+				"vim",
+				"vimdoc",
 				"yaml",
 			},
 		})
