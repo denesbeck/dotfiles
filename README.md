@@ -77,6 +77,7 @@ theme = Catppuccin Frappe
 - [eza](https://eza.rocks/)
 - [fzf](https://github.com/junegunn/fzf)
 - [httpie](https://httpie.io/)
+- [httpstat](https://github.com/reorx/httpstat)
 - [jq](https://github.com/jqlang/jq)
 - [lazydocker](https://github.com/jesseduffield/lazydocker)
 - [lazygit](https://github.com/jesseduffield/lazygit)
