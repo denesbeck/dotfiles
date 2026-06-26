@@ -30,30 +30,14 @@ return {
 			end
 
 			mason_lspconfig.setup({
-				ensure_installed = {
-					"ansiblels",
-					"bashls",
-					"biome",
-					"cssls",
-					"dockerls",
-					"gopls",
-					"html",
-					"jsonls",
-					"lua_ls",
-					"pyright",
-					"sqlls",
-					"tailwindcss",
-					"terraformls",
-					"ts_ls",
-					"yamlls",
-				},
+				ensure_installed = require("config.servers"),
 			})
 		end,
 	},
 
 	-- LSP Saga
 	{
-		"glepnir/lspsaga.nvim",
+		"nvimdev/lspsaga.nvim",
 		config = function()
 			---@diagnostic disable: undefined-global
 			local ok, lspsaga = pcall(require, "lspsaga")

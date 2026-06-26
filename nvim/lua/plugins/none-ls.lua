@@ -1,6 +1,10 @@
 return {
 	"nvimtools/none-ls.nvim",
-	dependencies = "nvim-lua/plenary.nvim",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"williamboman/mason.nvim",
+		"jay-babu/mason-null-ls.nvim",
+	},
 	config = function()
 		local ok, null_ls = pcall(require, "null-ls")
 		if not ok then
@@ -27,7 +31,7 @@ return {
 			sources = sources,
 			-- you can reuse a shared lspconfig on_attach callback here
 			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
+				if client:supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						group = augroup,
@@ -45,5 +49,14 @@ return {
 				end
 			end,
 		})
+
+		-- Auto-install the external tools the sources above rely on.
+		local mason_null_ls_ok, mason_null_ls = pcall(require, "mason-null-ls")
+		if mason_null_ls_ok then
+			mason_null_ls.setup({
+				ensure_installed = nil, -- install whatever the configured null-ls sources need
+				automatic_installation = true,
+			})
+		end
 	end,
 }

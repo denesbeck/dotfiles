@@ -22,11 +22,8 @@ keymap.set("n", "sh", ":split<Return><C-w>w")
 keymap.set("n", "sv", ":vsplit<Return><C-w>w")
 
 -- Move around splits
+-- Note: <C-h/j/k/l> are bound by vim-tmux-navigator's default mappings.
 keymap.set("n", "<Space>", "<C-w>w")
-keymap.set("", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
-keymap.set("", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
-keymap.set("", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
-keymap.set("", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
 
 -- Resize split
 keymap.set("n", "<M-h>", "<C-w><")

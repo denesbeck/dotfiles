@@ -26,7 +26,7 @@ local function getGreeting(name)
 	return datetime .. "\t" .. greetingsTable[greetingIndex] .. ", " .. name
 end
 
-local userName = os.getenv("USER") or vim.loop.os_get_passwd().username or "User"
+local userName = os.getenv("USER") or vim.uv.os_get_passwd().username or "User"
 local greeting = getGreeting(userName)
 
 return {

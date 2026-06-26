@@ -73,23 +73,7 @@ return {
 			-- Set up lspconfig.
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local servers = {
-				"ansiblels",
-				"bashls",
-				"biome",
-				"cssls",
-				"dockerls",
-				"gopls",
-				"html",
-				"jsonls",
-				"lua_ls",
-				"pyright",
-				"sqlls",
-				"tailwindcss",
-				"terraformls",
-				"ts_ls",
-				"yamlls",
-			}
+			local servers = require("config.servers")
 
 			for _, lsp in ipairs(servers) do
 				vim.lsp.config(lsp, { capabilities = capabilities })
