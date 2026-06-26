@@ -108,7 +108,7 @@
     - name: Install Tmux Plugin Manager (TPM)
       git:
         repo: "https://github.com/tmux-plugins/tpm.git"
-        dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+        dest: "{{ ansible_user_dir }}/.config/tmux/plugins/tpm"
         clone: yes
 
     # Install Oh My Zsh

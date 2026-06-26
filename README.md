@@ -18,7 +18,7 @@ My dotfiles for NeoVim, Tmux.
 ### 🗑️ Clean
 
 ```bash
-rm -rf ~/.config/.git ~/.config/.gitignore ~/.config/README.md ~/.config/init.yml ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/tmux/tmux.conf ~/.tmux
+rm -rf ~/.config/.git ~/.config/.gitignore ~/.config/README.md ~/.config/init.yml ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.config/tmux ~/.tmux
 ```
 
 ### 💾 Clone
@@ -58,7 +58,7 @@ theme = Catppuccin Frappe
 
 ### 📦 Tmux Plugin Manager
 
-1. Install [tpm](https://github.com/tmux-plugins/tpm)
+1. Install [tpm](https://github.com/tmux-plugins/tpm) into `~/.config/tmux/plugins/tpm`
 2. Manually install (recommended) the [catppuccin for tmux](https://github.com/catppuccin/tmux) plugin
 3. Install Tmux plugins (prefix + I) or reload the configuration: `tmux source ~/.config/tmux/tmux.conf`
 
@@ -93,6 +93,7 @@ theme = Catppuccin Frappe
 
 ### 🔌 Oh My Zsh Plugins
 
+- [git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)
 - [z](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 - [zsh-bat](https://github.com/fdellwing/zsh-bat)
