@@ -8,16 +8,16 @@
         path: "{{ item }}"
         state: absent
       loop:
-        - "{{ ansible_user_dir }}/.config/.git"
-        - "{{ ansible_user_dir }}/.config/.gitignore"
-        - "{{ ansible_user_dir }}/.config/README.md"
-        - "{{ ansible_user_dir }}/.config/init.yml"
-        - "{{ ansible_user_dir }}/.config/nvim"
-        - "{{ ansible_user_dir }}/.local/share/nvim"
-        - "{{ ansible_user_dir }}/.local/state/nvim"
-        - "{{ ansible_user_dir }}/.cache/nvim"
-        - "{{ ansible_user_dir }}/.config/tmux"
-        - "{{ ansible_user_dir }}/.tmux"
+        - "{{ ansible_facts['user_dir'] }}/.config/.git"
+        - "{{ ansible_facts['user_dir'] }}/.config/.gitignore"
+        - "{{ ansible_facts['user_dir'] }}/.config/README.md"
+        - "{{ ansible_facts['user_dir'] }}/.config/init.yml"
+        - "{{ ansible_facts['user_dir'] }}/.config/nvim"
+        - "{{ ansible_facts['user_dir'] }}/.local/share/nvim"
+        - "{{ ansible_facts['user_dir'] }}/.local/state/nvim"
+        - "{{ ansible_facts['user_dir'] }}/.cache/nvim"
+        - "{{ ansible_facts['user_dir'] }}/.config/tmux"
+        - "{{ ansible_facts['user_dir'] }}/.tmux"
 
     # Get the dotfiles assuming that ~/.config already exists
     - name: Initialize Git repository and checkout main branch
@@ -25,22 +25,22 @@
         - name: Initialize git repository
           command: git init
           args:
-            chdir: "{{ ansible_user_dir }}/.config"
+            chdir: "{{ ansible_facts['user_dir'] }}/.config"
 
         - name: Add remote origin
           command: git remote add origin https://github.com/denesbeck/dotfiles.git
           args:
-            chdir: "{{ ansible_user_dir }}/.config"
+            chdir: "{{ ansible_facts['user_dir'] }}/.config"
 
         - name: Fetch remote repository
           command: git fetch origin
           args:
-            chdir: "{{ ansible_user_dir }}/.config"
+            chdir: "{{ ansible_facts['user_dir'] }}/.config"
 
         - name: Checkout to main
           command: git checkout -b main --track origin/main
           args:
-            chdir: "{{ ansible_user_dir }}/.config"
+            chdir: "{{ ansible_facts['user_dir'] }}/.config"
 
     # Install Homebrew (if not installed)
     - name: Install Homebrew
@@ -85,19 +85,19 @@
     # Install Ghostty config (macOS path: ~/Library/Application Support/com.mitchellh.ghostty/config)
     - name: Ensure parent directories exist
       file:
-        path: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty"
+        path: "{{ ansible_facts['user_dir'] }}/Library/Application Support/com.mitchellh.ghostty"
         state: directory
         mode: "0755"
 
     - name: Create the config file if it doesn't exist
       file:
-        path: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty/config"
+        path: "{{ ansible_facts['user_dir'] }}/Library/Application Support/com.mitchellh.ghostty/config"
         state: touch
         mode: "0644"
 
     - name: Configure Ghostty
       copy:
-        dest: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty/config"
+        dest: "{{ ansible_facts['user_dir'] }}/Library/Application Support/com.mitchellh.ghostty/config"
         content: |
           background-opacity = 0.7
           background-blur = 15
@@ -108,7 +108,7 @@
     - name: Install Tmux Plugin Manager (TPM)
       git:
         repo: "https://github.com/tmux-plugins/tpm.git"
-        dest: "{{ ansible_user_dir }}/.config/tmux/plugins/tpm"
+        dest: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/tpm"
         clone: yes
 
     # Install Oh My Zsh
@@ -118,20 +118,18 @@
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         fi
       args:
-        creates: "{{ ansible_user_dir }}/.oh-my-zsh"
+        creates: "{{ ansible_facts['user_dir'] }}/.oh-my-zsh"
 
     # Purge the existing Zsh plugins folder
     - name: Purge existing Zsh plugins
       file:
-        path: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins"
+        path: "{{ ansible_facts['user_dir'] }}/.oh-my-zsh/custom/plugins"
         state: absent
-      become: yes
-      ignore_errors: yes
 
     # Add plugins to the .zshrc file
     - name: Update plugins line in .zshrc
       lineinfile:
-        path: "{{ ansible_user_dir }}/.zshrc"
+        path: "{{ ansible_facts['user_dir'] }}/.zshrc"
         regexp: "^plugins="
         line: "plugins=(git z zsh-autosuggestions zsh-bat zsh-syntax-highlighting you-should-use)"
 
@@ -139,7 +137,7 @@
     - name: Install Zsh plugins
       git:
         repo: "{{ item }}"
-        dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/{{ item | basename }}"
+        dest: "{{ ansible_facts['user_dir'] }}/.oh-my-zsh/custom/plugins/{{ item | basename }}"
         clone: yes
       loop:
         - "https://github.com/zsh-users/zsh-autosuggestions"
@@ -150,13 +148,13 @@
     - name: Install zsh-you-should-use plugin
       git:
         repo: "https://github.com/MichaelAquilina/zsh-you-should-use"
-        dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/you-should-use" # Custom folder name without the zsh- prefix
+        dest: "{{ ansible_facts['user_dir'] }}/.oh-my-zsh/custom/plugins/you-should-use" # Custom folder name without the zsh- prefix
         clone: yes
 
     # Setup Pyenv
     - name: Ensure Pyenv config is added to .zshrc
       blockinfile:
-        path: "{{ ansible_user_dir }}/.zshrc"
+        path: "{{ ansible_facts['user_dir'] }}/.zshrc"
         block: |
           export PYENV_ROOT="$HOME/.pyenv"
           [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -170,7 +168,7 @@
     # Setup NVM
     - name: Ensure NVM config is added to .zshrc
       blockinfile:
-        path: "{{ ansible_user_dir }}/.zshrc"
+        path: "{{ ansible_facts['user_dir'] }}/.zshrc"
         block: |
           export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -183,7 +181,7 @@
     # Add custom aliases
     - name: Ensure custom aliases are added to .zshrc
       blockinfile:
-        path: "{{ ansible_user_dir }}/.zshrc"
+        path: "{{ ansible_facts['user_dir'] }}/.zshrc"
         block: |
           alias vi=nvim
           alias g='ghostty'
@@ -210,13 +208,13 @@
     # Setup Catppuccin for Tmux
     - name: Ensure the directory exists
       file:
-        path: "{{ ansible_user_dir }}/.config/tmux/plugins/catppuccin"
+        path: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/catppuccin"
         state: directory
 
     - name: Clone the Catppuccin Tmux plugin repository
       git:
         repo: "https://github.com/catppuccin/tmux.git"
-        dest: "{{ ansible_user_dir }}/.config/tmux/plugins/catppuccin/tmux"
+        dest: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/catppuccin/tmux"
         clone: yes
         update: yes
 
@@ -228,14 +226,10 @@
 
     - name: Reload Tmux configuration
       command:
-        cmd: "tmux source-file {{ ansible_user_dir }}/.config/tmux/tmux.conf"
+        cmd: "tmux source-file {{ ansible_facts['user_dir'] }}/.config/tmux/tmux.conf"
       when: tmux_check.rc == 0
       notify:
         - Reload Tmux configuration
-
-    # Reload Zsh configuration
-    - name: Reload Zsh configuration
-      shell: source {{ ansible_user_dir }}/.zshrc
 
   handlers:
     - name: Reload Tmux configuration
