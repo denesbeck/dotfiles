@@ -79,6 +79,18 @@ return {
 				vim.lsp.config(lsp, { capabilities = capabilities })
 				vim.lsp.enable(lsp)
 			end
+
+			-- terraform-ls's semantic-token response sends Neovim's semantic-token
+			-- highlighter into a 100% CPU loop on some buffers (freezes on open).
+			-- Disable semantic tokens for this server only; everything else keeps them.
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client and client.name == "terraformls" then
+						client.server_capabilities.semanticTokensProvider = nil
+					end
+				end,
+			})
 		end,
 	},
 }
