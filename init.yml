@@ -102,6 +102,7 @@
           background-opacity = 0.7
           background-blur = 15
           theme = Catppuccin Frappe
+          macos-option-as-alt = true
         mode: "0644"
 
     # Install TPM for Tmux

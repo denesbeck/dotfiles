@@ -47,7 +47,10 @@ git checkout -b main --track origin/main
 background-opacity = 0.7
 background-blur = 15
 theme = Catppuccin Frappe
+macos-option-as-alt = true
 ```
+
+> `macos-option-as-alt = true` makes the ⌥ (Option) key send Alt/Meta, so the `<M-h/j/k/l>` split-resize keymaps in NeoVim work. Without it, macOS uses Option as a compose key and NeoVim never receives the keypress.
 
 3. Reload config
 
