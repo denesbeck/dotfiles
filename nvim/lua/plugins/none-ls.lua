@@ -15,6 +15,9 @@ return {
 			null_ls.builtins.formatting.biome,
 			null_ls.builtins.formatting.goimports_reviser,
 			null_ls.builtins.formatting.nginx_beautifier,
+			null_ls.builtins.formatting.prettier.with({
+				filetypes = { "yaml", "markdown", "markdown.mdx", "html" },
+			}),
 			null_ls.builtins.formatting.rustywind,
 			null_ls.builtins.formatting.shfmt.with({
 				extra_args = { "-i", "2", "-ci" },
@@ -23,31 +26,8 @@ return {
 			null_ls.builtins.formatting.terraform_fmt,
 		}
 
-		---@diagnostic disable-next-line: undefined-global
-		local vim = vim
-
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 		null_ls.setup({
 			sources = sources,
-			-- you can reuse a shared lspconfig on_attach callback here
-			on_attach = function(client, bufnr)
-				if client:supports_method("textDocument/formatting") then
-					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = augroup,
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({
-								bufnr = bufnr,
-								async = false,
-								filter = function(c)
-									return c.name == "null-ls"
-								end,
-							})
-						end,
-					})
-				end
-			end,
 		})
 
 		-- Auto-install the external tools the sources above rely on.
@@ -55,7 +35,9 @@ return {
 		if mason_null_ls_ok then
 			mason_null_ls.setup({
 				ensure_installed = nil, -- install whatever the configured null-ls sources need
-				automatic_installation = true,
+				automatic_installation = {
+					exclude = { "goimports_reviser", "terraform_fmt", "nginx_beautifier" },
+				},
 			})
 		end
 	end,

@@ -11,6 +11,7 @@ return {
 	"jsonls",
 	"lua_ls",
 	"pyright",
+	"ruff",
 	"sqlls",
 	"tailwindcss",
 	"terraformls",
