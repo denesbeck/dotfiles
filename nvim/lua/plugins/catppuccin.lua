@@ -10,9 +10,6 @@ return {
 
 		catppuccin.setup({
 			flavour = "frappe",
-			background = {
-				dark = "frappe",
-			},
 			transparent_background = true, -- don't set a background color (let the terminal show through)
 			float = {
 				transparent = true, -- transparent floating windows
