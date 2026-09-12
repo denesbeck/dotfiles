@@ -26,6 +26,8 @@ vim.opt.showtabline = 0 -- never display tabline
 vim.opt.sidescrolloff = 10 -- Number of columns to keep at the sides of the cursor
 vim.opt.smartcase = true -- Case sensitivie searching
 vim.opt.smartindent = true -- Smarter autoindentation
+vim.opt.splitbelow = true -- Open horizontal splits below the current window
+vim.opt.splitright = true -- Open vertical splits to the right of the current window
 vim.opt.tabstop = 2 -- Number of space in a tab
 vim.opt.wrap = true -- Wrapping of lines longer than the width of window
 

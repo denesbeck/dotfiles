@@ -9,17 +9,15 @@ keymap.set("n", "<leader>p", "<cmd>Lazy<CR>")
 keymap.set("n", "<leader>m", "<cmd>Mason<CR>")
 
 -- Buffer
-keymap.set("n", "<leader>cc", "<cmd>bw<CR>") -- Close buffer
-keymap.set("n", "<Tab>", "<cmd>bn<CR>") -- Next buffer
-keymap.set("n", "<S-Tab>", "<cmd>bp<CR>") -- Previous buffer
+keymap.set("n", "<leader>cc", "<cmd>bd<CR>") -- Close buffer
 keymap.set("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>") -- Close all buffers except current
 
 -- Reset search highlight
-keymap.set("n", "//", "<cmd>nohlsearch<CR>")
+keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Create window split
-keymap.set("n", "sh", ":split<Return><C-w>w")
-keymap.set("n", "sv", ":vsplit<Return><C-w>w")
+keymap.set("n", "<leader>ws", "<cmd>split<CR>")
+keymap.set("n", "<leader>wv", "<cmd>vsplit<CR>")
 
 -- Move around splits
 -- Note: <C-h/j/k/l> are bound by vim-tmux-navigator's default mappings.
