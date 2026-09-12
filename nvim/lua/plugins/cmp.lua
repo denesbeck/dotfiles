@@ -23,7 +23,7 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			"neovim/nvim-lspconfig",
+			"js-everts/cmp-tailwind-colors",
 		},
 		config = function()
 			local ok, cmp = pcall(require, "cmp")
@@ -32,6 +32,7 @@ return {
 			end
 
 			local luasnip_ok, luasnip = pcall(require, "luasnip")
+			local tailwind_ok, tailwind = pcall(require, "cmp-tailwind-colors")
 
 			cmp.setup({
 				snippet = {
@@ -42,7 +43,7 @@ return {
 					end,
 				},
 				formatting = {
-					format = require("cmp-tailwind-colors").format,
+					format = tailwind_ok and tailwind.format or nil,
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -68,28 +69,6 @@ return {
 					{ name = "cmdline" },
 				}),
 				matching = { disallow_symbol_nonprefix_matching = false },
-			})
-
-			-- Set up lspconfig.
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			local servers = require("config.servers")
-
-			for _, lsp in ipairs(servers) do
-				vim.lsp.config(lsp, { capabilities = capabilities })
-				vim.lsp.enable(lsp)
-			end
-
-			-- terraform-ls's semantic-token response sends Neovim's semantic-token
-			-- highlighter into a 100% CPU loop on some buffers (freezes on open).
-			-- Disable semantic tokens for this server only; everything else keeps them.
-			vim.api.nvim_create_autocmd("LspAttach", {
-				callback = function(args)
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					if client and client.name == "terraformls" then
-						client.server_capabilities.semanticTokensProvider = nil
-					end
-				end,
 			})
 		end,
 	},

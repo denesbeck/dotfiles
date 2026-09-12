@@ -23,6 +23,7 @@ return {
 	-- Mason LSP Config
 	{
 		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			local mason_lsp_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 			if not mason_lsp_ok then
@@ -31,6 +32,41 @@ return {
 
 			mason_lspconfig.setup({
 				ensure_installed = require("config.servers"),
+				automatic_enable = false,
+			})
+		end,
+	},
+
+	-- LSP servers
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = { "hrsh7th/cmp-nvim-lsp", "williamboman/mason-lspconfig.nvim" },
+		config = function()
+			---@diagnostic disable: undefined-global
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+			local cmp_lsp_ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+			if cmp_lsp_ok then
+				capabilities = cmp_lsp.default_capabilities()
+			end
+
+			vim.lsp.config("*", { capabilities = capabilities })
+
+			for _, server in ipairs(require("config.servers")) do
+				vim.lsp.enable(server)
+			end
+
+			-- terraform-ls's semantic-token response sends Neovim's semantic-token
+			-- highlighter into a 100% CPU loop on some buffers (freezes on open).
+			-- Disable semantic tokens for this server only; everything else keeps them.
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("terraformls_no_semantic_tokens", { clear = true }),
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client and client.name == "terraformls" then
+						client.server_capabilities.semanticTokensProvider = nil
+					end
+				end,
 			})
 		end,
 	},
