@@ -8,7 +8,12 @@ return {
 			ensure_installed = {
 				"bash",
 				"css",
+				"diff",
 				"dockerfile",
+				"gitcommit",
+				"go",
+				"gomod",
+				"hcl",
 				"html",
 				"javascript",
 				"json",
