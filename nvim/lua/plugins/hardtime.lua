@@ -1,7 +1,6 @@
 return {
 	"m4xshen/hardtime.nvim",
 	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-	opts = {},
 	config = function()
 		local ok, hardtime = pcall(require, "hardtime")
 		if not ok then
@@ -22,7 +21,11 @@ return {
 
 		keymap.set("n", "<leader>htt", function()
 			hardtime.toggle()
-			notify("Hardtime " .. (hardtime.is_enabled and "enabled" or "disabled"), log.levels.INFO, { title = plugin })
+			notify(
+				"Hardtime " .. (hardtime.is_plugin_enabled and "enabled" or "disabled"),
+				log.levels.INFO,
+				{ title = plugin }
+			)
 		end, opts)
 		keymap.set("n", "<leader>hte", function()
 			hardtime.enable()
