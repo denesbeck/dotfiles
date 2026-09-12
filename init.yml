@@ -206,19 +206,6 @@
         append_newline: yes
         prepend_newline: yes
 
-    # Setup Catppuccin for Tmux
-    - name: Ensure the directory exists
-      file:
-        path: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/catppuccin"
-        state: directory
-
-    - name: Clone the Catppuccin Tmux plugin repository
-      git:
-        repo: "https://github.com/catppuccin/tmux.git"
-        dest: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/catppuccin/tmux"
-        clone: yes
-        update: yes
-
     # Setup Tmux with plugins
     - name: Check if Tmux session exists
       shell: "tmux has-session -t default 2>/dev/null || tmux new-session -d -s default"
