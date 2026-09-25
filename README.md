@@ -74,7 +74,6 @@ macos-option-as-alt = true
 ### ⚡ General
 
 - bash
-- [bat](https://github.com/sharkdp/bat)
 - [bottom](https://github.com/ClementTsang/bottom)
 - curl
 - [eza](https://eza.rocks/)
@@ -82,11 +81,9 @@ macos-option-as-alt = true
 - [httpie](https://httpie.io/)
 - [httpstat](https://github.com/reorx/httpstat)
 - [jq](https://github.com/jqlang/jq)
-- [lazydocker](https://github.com/jesseduffield/lazydocker)
 - [lazygit](https://github.com/jesseduffield/lazygit)
 - [lazyssh](https://github.com/Adembc/lazyssh)
 - [nvm](https://github.com/nvm-sh/nvm)
-- [opencode](https://github.com/sst/opencode)
 - [pyenv](https://github.com/pyenv/pyenv)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [tree-sitter](https://tree-sitter.github.io/tree-sitter/)
@@ -99,7 +96,6 @@ macos-option-as-alt = true
 - [git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)
 - [z](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-- [zsh-bat](https://github.com/fdellwing/zsh-bat)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use)
 
@@ -110,11 +106,8 @@ alias vi=nvim
 alias g="ghostty"
 alias ll="eza -lg --icons --git -h"
 alias lla="eza -lg --icons --git -h -a"
-alias cat=bat
-alias ld=lazydocker
 alias lg=lazygit
 alias lssh=lazyssh
-alias oc=opencode
 alias gem="git commit --allow-empty -m"
 alias update="brew update && brew upgrade && brew cleanup"
 alias a=ansible

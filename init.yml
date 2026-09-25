@@ -59,7 +59,6 @@
         state: present
       loop:
         - bash
-        - bat
         - bottom
         - curl
         - eza
@@ -68,12 +67,10 @@
         - httpie
         - httpstat
         - jq
-        - lazydocker
         - lazygit
         - lazyssh
         - neovim
         - nvm
-        - opencode
         - pyenv
         - ripgrep
         - tmux
@@ -132,7 +129,7 @@
       lineinfile:
         path: "{{ ansible_facts['user_dir'] }}/.zshrc"
         regexp: "^plugins="
-        line: "plugins=(git z zsh-autosuggestions zsh-bat zsh-syntax-highlighting you-should-use)"
+        line: "plugins=(git z zsh-autosuggestions zsh-syntax-highlighting you-should-use)"
 
     # Install Zsh plugins
     - name: Install Zsh plugins
@@ -142,7 +139,6 @@
         clone: yes
       loop:
         - "https://github.com/zsh-users/zsh-autosuggestions"
-        - "https://github.com/fdellwing/zsh-bat"
         - "https://github.com/zsh-users/zsh-syntax-highlighting"
 
     # Install zsh-you-should-use plugin with custom folder name
@@ -188,11 +184,8 @@
           alias g='ghostty'
           alias ll='eza -lg --icons --git -h'
           alias lla='eza -lg --icons --git -h -a'
-          alias cat=bat
-          alias ld=lazydocker
           alias lg=lazygit
           alias lssh=lazyssh
-          alias oc=opencode
           alias gem='git commit --allow-empty -m'
           alias update='brew update && brew upgrade && brew cleanup'
           alias a=ansible
