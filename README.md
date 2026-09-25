@@ -81,6 +81,7 @@ macos-option-as-alt = true
 - [httpie](https://httpie.io/)
 - [httpstat](https://github.com/reorx/httpstat)
 - [jq](https://github.com/jqlang/jq)
+- [k9s](https://github.com/derailed/k9s)
 - [lazygit](https://github.com/jesseduffield/lazygit)
 - [lazyssh](https://github.com/Adembc/lazyssh)
 - [nvm](https://github.com/nvm-sh/nvm)

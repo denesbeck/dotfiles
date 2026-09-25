@@ -67,6 +67,7 @@
         - httpie
         - httpstat
         - jq
+        - k9s
         - lazygit
         - lazyssh
         - neovim
