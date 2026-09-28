@@ -9,6 +9,8 @@ keymap.set("n", "<leader>p", "<cmd>Lazy<CR>")
 keymap.set("n", "<leader>m", "<cmd>Mason<CR>")
 
 -- Buffer
+keymap.set("n", "<Tab>", "<cmd>bnext<CR>") -- Next buffer
+keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>") -- Previous buffer
 keymap.set("n", "<leader>cc", "<cmd>bd<CR>") -- Close buffer
 keymap.set("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>") -- Close all buffers except current
 
