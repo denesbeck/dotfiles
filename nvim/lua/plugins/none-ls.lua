@@ -36,7 +36,7 @@ return {
 			mason_null_ls.setup({
 				ensure_installed = nil, -- install whatever the configured null-ls sources need
 				automatic_installation = {
-					exclude = { "goimports_reviser", "terraform_fmt", "nginx_beautifier" },
+					exclude = { "terraform_fmt", "nginx_beautifier" },
 				},
 			})
 		end
