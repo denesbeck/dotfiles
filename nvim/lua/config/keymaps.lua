@@ -18,8 +18,8 @@ keymap.set("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>") -- Close all buffers except
 keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Create window split
-keymap.set("n", "<leader>ws", "<cmd>split<CR>")
-keymap.set("n", "<leader>wv", "<cmd>vsplit<CR>")
+keymap.set("n", "<leader>sh", "<cmd>split<CR>")
+keymap.set("n", "<leader>sv", "<cmd>vsplit<CR>")
 
 -- Move around splits
 -- Note: <C-h/j/k/l> are bound by vim-tmux-navigator's default mappings.
