@@ -11,11 +11,12 @@ keymap.set("n", "<leader>m", "<cmd>Mason<CR>")
 -- Buffer
 keymap.set("n", "<Tab>", "<cmd>bnext<CR>") -- Next buffer
 keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>") -- Previous buffer
-keymap.set("n", "<leader>cc", "<cmd>bd<CR>") -- Close buffer
+keymap.set("n", "<leader>cc", "<cmd>bw<CR>") -- Close buffer
 keymap.set("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>") -- Close all buffers except current
 
 -- Reset search highlight
 keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+keymap.set("n", "//", "<cmd>nohlsearch<CR>")
 
 -- Create window split
 keymap.set("n", "<leader>sh", "<cmd>split<CR>")
