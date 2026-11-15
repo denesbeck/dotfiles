@@ -18,11 +18,16 @@ worst=$(tmux list-panes -t "$TMUX_PANE" -F '#{@claude_pane_status}' | awk '
   $0 == "done"    && r < 1 { r = 1 }
   END { split("done working waiting", n); if (r) print n[r] }')
 
-current=$(tmux show -wqv -t "$TMUX_PANE" @claude_status)
+[ "$worst" = "$(tmux show -wqv -t "$TMUX_PANE" @claude_status)" ] && exit 0
 
 if [ -z "$worst" ]; then
-  tmux set -wu -t "$TMUX_PANE" @claude_status \; set -wu -t "$TMUX_PANE" @claude_since
-elif [ "$worst" != "$current" ]; then
-  tmux set -w -t "$TMUX_PANE" @claude_status "$worst" \; set -w -t "$TMUX_PANE" @claude_since "$(date +%s)"
+  tmux set -wu -t "$TMUX_PANE" @claude_status
+else
+  tmux set -w -t "$TMUX_PANE" @claude_status "$worst"
 fi
+
+# Redraw every client's status bar now instead of on the next status-interval.
+tmux list-clients -F '#{client_name}' | while read -r c; do
+  tmux refresh-client -S -t "$c"
+done
 exit 0

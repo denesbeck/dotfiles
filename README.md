@@ -78,8 +78,6 @@ Each window running [Claude Code](https://claude.com/claude-code) shows its stat
 - `●` (yellow): working
 - `✓` (green): done, your turn
 
-`prefix + a` opens a popup listing every Claude window across sessions (most urgent first); `Enter` jumps to it. Requires `fzf`.
-
 The state is set by Claude Code hooks (defined in [`tmux/scripts/claude-hooks.json`](./tmux/scripts/claude-hooks.json)) calling [`claude-status.sh`](./tmux/scripts/claude-status.sh). The Ansible playbook merges them into `~/.claude/settings.json`; for a manual install run:
 
 ```bash
