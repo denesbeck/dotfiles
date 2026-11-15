@@ -21,6 +21,8 @@ nvim/lazy-lock.json
 # ignore machine-local Claude Code settings
 nvim/.claude/settings.local.json
 
-# unignore tmux.conf
+# unignore tmux.conf and scripts
 !tmux
 !tmux/tmux.conf
+!tmux/scripts
+!tmux/scripts/*

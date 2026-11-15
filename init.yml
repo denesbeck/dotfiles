@@ -110,6 +110,12 @@
         dest: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/tpm"
         clone: yes
 
+    # Claude Code hooks for the tmux status indicator (merged into ~/.claude/settings.json)
+    - name: Install Claude Code tmux status hooks
+      command: "{{ ansible_facts['user_dir'] }}/.config/tmux/scripts/install-claude-hooks.sh"
+      register: claude_hooks
+      changed_when: "'changed' in claude_hooks.stdout"
+
     # Install Oh My Zsh
     - name: Install Oh My Zsh
       shell: |

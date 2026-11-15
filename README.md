@@ -65,6 +65,29 @@ macos-option-as-alt = true
 2. Manually install (recommended) the [catppuccin for tmux](https://github.com/catppuccin/tmux) plugin
 3. Install Tmux plugins (prefix + I) or reload the configuration: `tmux source ~/.config/tmux/tmux.conf`
 
+### 🪟 Tmux Windows
+
+- `prefix + ,` renames the current window (the name sticks); unnamed windows show the current directory.
+- `prefix + <` switches a renamed window back to automatic naming.
+
+### 🤖 Claude Code Status in Tmux
+
+Each window running [Claude Code](https://claude.com/claude-code) shows its state after the window name:
+
+- `!` (red): needs you (permission prompt or question)
+- `●` (yellow): working
+- `✓` (green): done, your turn
+
+`prefix + a` opens a popup listing every Claude window across sessions (most urgent first); `Enter` jumps to it. Requires `fzf`.
+
+The state is set by Claude Code hooks (defined in [`tmux/scripts/claude-hooks.json`](./tmux/scripts/claude-hooks.json)) calling [`claude-status.sh`](./tmux/scripts/claude-status.sh). The Ansible playbook merges them into `~/.claude/settings.json`; for a manual install run:
+
+```bash
+~/.config/tmux/scripts/install-claude-hooks.sh
+```
+
+It is safe to re-run and keeps your other settings and hooks. Restart running Claude sessions to pick the hooks up.
+
 ### 😯 Oh My Zsh
 
 1. Install [oh-my-zsh](https://ohmyz.sh/)
