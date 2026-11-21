@@ -1,5 +1,5 @@
 #!/bin/sh
-# Event-triggered tmux-resurrect save (pane/window closed, client detached).
+# Event-triggered tmux-resurrect save (pane/window created or closed, client detached).
 # Debounced, and never replaces the last snapshot with an empty one, which could
 # happen while the server shuts down and its windows close one by one.
 

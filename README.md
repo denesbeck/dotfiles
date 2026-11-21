@@ -106,7 +106,7 @@ It is safe to re-run and keeps your other settings and hooks. Restart running Cl
 
 ### 💾 Tmux Session Restore
 
-[tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) + [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) save the session every 5 minutes and whenever you close a pane, a window or the terminal, and restore it when tmux starts (e.g. after a reboot). Claude panes come back as `claude --continue` (latest conversation in that directory), lazygit is relaunched. Manual: `prefix + C-s` save, `prefix + C-r` restore.
+[tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) + [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) save the session every 5 minutes and whenever you open or close a pane or window, or close the terminal, and restore it when tmux starts (e.g. after a reboot). Claude panes come back as `claude --continue` (latest conversation in that directory), lazygit is relaunched. Manual: `prefix + C-s` save, `prefix + C-r` restore.
 
 ### 😯 Oh My Zsh
 
