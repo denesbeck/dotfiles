@@ -101,6 +101,7 @@
           background-blur = 15
           theme = Catppuccin Frappe
           macos-option-as-alt = true
+          command = /bin/zsh -lc 'tmux new-session -A -s 0 || exec zsh -l'
         mode: "0644"
 
     # Install TPM for Tmux
@@ -109,6 +110,12 @@
         repo: "https://github.com/tmux-plugins/tpm.git"
         dest: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/tpm"
         clone: yes
+
+    # Install the plugins listed in tmux.conf (catppuccin, resurrect, continuum, ...)
+    - name: Install Tmux plugins
+      command: "{{ ansible_facts['user_dir'] }}/.config/tmux/plugins/tpm/bin/install_plugins"
+      register: tpm_plugins
+      changed_when: "'download success' in tpm_plugins.stdout"
 
     # Claude Code hooks for the tmux status indicator (merged into ~/.claude/settings.json)
     - name: Install Claude Code tmux status hooks

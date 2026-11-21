@@ -11,7 +11,7 @@ My dotfiles for NeoVim, Tmux.
 1. Ensure [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible) is installed.
 2. Download the [init.yml](./init.yml) file.
 3. Run the playbook: `ansible-playbook path/to/your/init.yml`
-4. When first running Tmux, press `C-w + I` to install plugins using `tpm`. NeoVim will install everything automatically on first run.
+4. Tmux plugins are installed by the playbook (`C-w + I` installs any added later). NeoVim will install everything automatically on first run.
 
 ## 🛠 Manual Install
 
@@ -48,7 +48,10 @@ background-opacity = 0.7
 background-blur = 15
 theme = Catppuccin Frappe
 macos-option-as-alt = true
+command = /bin/zsh -lc 'tmux new-session -A -s 0 || exec zsh -l'
 ```
+
+> `command` opens tmux (session `0`) in every new Ghostty window and falls back to a plain shell if tmux fails to start.
 
 > `macos-option-as-alt = true` makes the ⌥ (Option) key send Alt/Meta, so the `<M-h/j/k/l>` split-resize keymaps in NeoVim work. Without it, macOS uses Option as a compose key and NeoVim never receives the keypress.
 
@@ -72,11 +75,12 @@ macos-option-as-alt = true
 
 ### 🤖 Claude Code Status in Tmux
 
-Each window running [Claude Code](https://claude.com/claude-code) shows its state after the window name:
+Each window tab ends with a badge showing the state of [Claude Code](https://claude.com/claude-code) in that window:
 
-- `!` (red): needs you (permission prompt or question)
-- `●` (yellow): working
-- `✓` (green): done, your turn
+- bell (red): needs you (permission prompt or question)
+- hourglass (yellow): working
+- check (green): done, your turn
+- terminal (dim): no Claude session
 
 The state is set by Claude Code hooks (defined in [`tmux/scripts/claude-hooks.json`](./tmux/scripts/claude-hooks.json)) calling [`claude-status.sh`](./tmux/scripts/claude-status.sh). The Ansible playbook merges them into `~/.claude/settings.json`; for a manual install run:
 
@@ -85,6 +89,15 @@ The state is set by Claude Code hooks (defined in [`tmux/scripts/claude-hooks.js
 ```
 
 It is safe to re-run and keeps your other settings and hooks. Restart running Claude sessions to pick the hooks up.
+
+### 📊 Tmux Status Bar
+
+- The directory module shows the full path of the current pane (`~` for home, trimmed from the left).
+- A git module shows the current pane's branch, `±` uncommitted changes and `↑`/`↓` ahead/behind ([`tmux-git.sh`](./tmux/scripts/tmux-git.sh)); it is hidden outside git repos.
+
+### 💾 Tmux Session Restore
+
+[tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) + [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) save the session every 10 minutes and restore it when tmux starts (e.g. after a reboot). Claude panes come back as `claude --continue` (latest conversation in that directory), lazygit is relaunched. Manual: `prefix + C-s` save, `prefix + C-r` restore.
 
 ### 😯 Oh My Zsh
 
