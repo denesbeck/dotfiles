@@ -2,7 +2,6 @@ return {
 	"sindrets/diffview.nvim",
 	cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose" },
 	init = function()
-		-- Better diffs everywhere (diffview, :diffsplit): histogram algorithm, aligned changed lines
 		vim.opt.diffopt:append({ "algorithm:histogram", "indent-heuristic", "linematch:60" })
 	end,
 	keys = {
