@@ -62,6 +62,15 @@ command = /bin/zsh -lc 'tmux new-session -A -s 0 || exec zsh -l'
 1. Install via HomeBrew [neovim](https://github.com/neovim/neovim)
 2. Install via HomeBrew [tmux](https://github.com/tmux/tmux)
 
+### 🔀 NeoVim Diff View
+
+[diffview.nvim](https://github.com/sindrets/diffview.nvim) for reviewing changes (leader is `;`):
+
+- `;dv` working tree vs HEAD (all changed files, side by side)
+- `;dm` current branch vs the default branch (`origin/HEAD...HEAD`)
+- `;dh` history of the current file, `;dH` history of the repo
+- `;dc` close the diff view
+
 ### 📦 Tmux Plugin Manager
 
 1. Install [tpm](https://github.com/tmux-plugins/tpm) into `~/.config/tmux/plugins/tpm`
