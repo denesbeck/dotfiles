@@ -6,10 +6,17 @@
 [ -n "$TMUX_PANE" ] || exit 0
 state="$1"
 
+# Hook input on stdin carries the session id; claude-resume.sh restores it
+session=$(tr -d '\n' | sed -n 's/.*"session_id" *: *"\([^"]*\)".*/\1/p')
+
 if [ "$state" = clear ]; then
   tmux set -pu -t "$TMUX_PANE" @claude_pane_status
+  tmux set -pu -t "$TMUX_PANE" @claude_session_id
 else
   tmux set -p -t "$TMUX_PANE" @claude_pane_status "$state"
+  if [ -n "$session" ] && [ "$session" != "$(tmux show -pqv -t "$TMUX_PANE" @claude_session_id)" ]; then
+    tmux set -p -t "$TMUX_PANE" @claude_session_id "$session"
+  fi
 fi
 
 worst=$(tmux list-panes -t "$TMUX_PANE" -F '#{@claude_pane_status}' | awk '
