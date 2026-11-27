@@ -13,7 +13,9 @@ return {
 
 		local sources = {
 			null_ls.builtins.formatting.biome,
-			null_ls.builtins.formatting.goimports_reviser,
+			null_ls.builtins.formatting.goimports_reviser.with({
+				extra_args = { "-format" },
+			}),
 			null_ls.builtins.formatting.nginx_beautifier,
 			null_ls.builtins.formatting.prettier.with({
 				filetypes = { "yaml", "markdown", "markdown.mdx", "html" },
